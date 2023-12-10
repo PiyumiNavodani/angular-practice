@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employee } from '../model/employee';
 import { Observable } from 'rxjs';
@@ -13,10 +13,22 @@ export class EmployeeService {
   constructor(private http: HttpClient) { }
 
   createEmployee(employee: Employee): Observable<any>{
-    return this.http.post<Employee>(this.baseUrl,employee);
+    const httpOptions = {
+      headers : new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.post<Employee>(this.baseUrl,employee, httpOptions);
   }
 
   getAllEmployees(): Observable<any>{
-    return this.http.get<Employee>(this.baseUrl)
+    const httpOptions = {
+      headers : new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<Employee>(this.baseUrl, httpOptions)
   }
+
+  
 }
